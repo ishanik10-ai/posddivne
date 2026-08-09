@@ -32,6 +32,7 @@ async function load(){
 }
 
 function showLogin(){
+  $("app").hidden=true;
   $("loginScreen").classList.remove('hidden');
   $("loginUser").focus();
   document.body.classList.add('locked');
@@ -39,6 +40,7 @@ function showLogin(){
 
 function hideLogin(){
   $("loginScreen").classList.add('hidden');
+  $("app").hidden=false;
   document.body.classList.remove('locked');
 }
 
@@ -71,6 +73,7 @@ async function login(){
 
 function logout(show=true){
   sessionStorage.removeItem('posSessionToken');
+  $("app").hidden=true;
   products=[];
   cart=[];
   if(show) alert('You have been logged out.');
