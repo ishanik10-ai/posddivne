@@ -1,0 +1,116 @@
+
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Local POS</title>
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<div id="loginScreen" class="login-screen">
+  <div class="login-box">
+    <div class="login-brand">Cash Memo</div>
+    <h2>Admin Login</h2>
+    <p class="login-subtitle">Sign in to access the POS</p>
+    <label>Username
+      <input id="loginUser" autocomplete="username" autocapitalize="none" spellcheck="false">
+    </label>
+    <label>Password
+      <input id="loginPassword" type="password" autocomplete="current-password">
+    </label>
+    <button id="loginBtn" class="print login-button">LOGIN</button>
+    <div id="loginError" class="login-error"></div>
+  </div>
+</div>
+
+<div class="app">
+  <header>
+    <div>
+      <h1>Cash Memo</h1>
+      <div class="sub">Local POS</div>
+    </div>
+    <div class="tools">
+      <label class="upload">
+        Upload Excel
+        <input id="excel" type="file" accept=".xlsx,.xlsm">
+      </label>
+      <button class="secondary" id="exportInventoryBtn">Export Inventory to Excel</button>
+      <button class="secondary add-product-btn" id="addProductBtn">Add New Product</button>
+      <span id="productCount">{{ products_count }} products</span>
+      <button class="secondary" id="historyBtn">History</button>
+      <button class="secondary" id="logoutBtn">Logout</button>
+    </div>
+  </header>
+
+  <main>
+    <section class="customer card">
+      <h2>Customer</h2>
+      <div class="fields">
+        <label>Name<input id="customerName" autocomplete="off"></label>
+        <label>Phone<input id="customerPhone" autocomplete="off"></label>
+        <label>L.Digit<input id="customerDigit" autocomplete="off"></label>
+      </div>
+    </section>
+
+    <section class="sale-grid">
+      <div class="card search-card">
+        <h2>Add products</h2>
+        <input id="search" class="search" placeholder="Type 3–4 words to find products..." autocomplete="off" autofocus>
+        <div id="results" class="results"></div>
+        <div class="hint">Click the exact product you want. You can also use ↑ ↓ and Enter.</div>
+      </div>
+
+      <div class="card memo-card">
+        <div class="memo-head">
+          <div>
+            <h2>Memo</h2>
+            <span id="memoNo">New memo</span>
+          </div>
+          <button class="secondary" id="clearBtn">Clear</button>
+        </div>
+        <div id="cart" class="cart"></div>
+
+        <div class="totals">
+          <div><span>Product Total</span><strong id="subtotal">৳0.00</strong></div>
+          <div><span>Shipping</span><input id="shipping" type="number" min="0" step="0.01" value="0"></div>
+      <div class="field-row"><label>Discount</label><input id="discount" type="number" min="0" step="1" value="0"></div>
+          <div class="grand"><span>TOTAL</span><strong id="total">৳0.00</strong></div>
+          <div><span>Advance</span><input id="advance" type="number" min="0" step="0.01" value="0"></div>
+          <div class="due"><span>DUE</span><strong id="due">৳0.00</strong></div>
+        </div>
+
+        <button id="printBtn" class="print">PRINT CASH MEMO</button>
+      </div>
+    </section>
+  </main>
+</div>
+
+<div id="productModal" class="modal hidden product-modal">
+  <div class="modal-box">
+    <div class="modal-head"><h2>Add New Product</h2><button class="secondary" id="closeProduct">Close</button></div>
+    <form id="productForm" class="product-form">
+      <label>Product Name<input id="newProductName" required autocomplete="off"></label>
+      <label>Product Code / SKU <span style="font-weight:400">(optional)</span><input id="newProductCode" autocomplete="off"></label>
+      <label>Price<input id="newProductPrice" type="number" min="0" step="0.01" required></label>
+      <div class="product-form-actions">
+        <button type="button" class="secondary" id="cancelProduct">Cancel</button>
+        <button type="submit" class="print">Add Product</button>
+      </div>
+    </form>
+  </div>
+</div>
+
+<div id="historyModal" class="modal hidden">
+  <div class="modal-box">
+    <div class="modal-head"><h2>Memo History</h2><button class="secondary" id="closeHistory">Close</button></div>
+    <div id="historyList"></div>
+  </div>
+</div>
+<div id="printArea"></div>
+<script src="https://cdn.sheetjs.com/xlsx-0.20.3/package/dist/xlsx.full.min.js"></script>
+<script src="config.js"></script>
+<script src="app.js"></script>
+</body>
+</html>
